@@ -2,4 +2,6 @@ type Todo @model {
   id: ID!
   name: String!
   description: String
+  lat: Float
+  lon: Float
 }
