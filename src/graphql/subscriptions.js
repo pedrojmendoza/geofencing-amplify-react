@@ -6,9 +6,6 @@ export const onCreateTodo = /* GraphQL */ `
     onCreateTodo {
       id
       name
-      desc
-      lat
-      lon
       geometry
       createdAt
       updatedAt
@@ -20,9 +17,6 @@ export const onUpdateTodo = /* GraphQL */ `
     onUpdateTodo {
       id
       name
-      desc
-      lat
-      lon
       geometry
       createdAt
       updatedAt
@@ -34,9 +28,6 @@ export const onDeleteTodo = /* GraphQL */ `
     onDeleteTodo {
       id
       name
-      desc
-      lat
-      lon
       geometry
       createdAt
       updatedAt
