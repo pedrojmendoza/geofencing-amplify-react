@@ -1,24 +1,20 @@
 /* src/App.js */
 import React, { useEffect, useState } from 'react'
+
 import { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { withAuthenticator } from '@aws-amplify/ui-react'
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-import { Icon } from "leaflet";
+import { Map, Popup, TileLayer, FeatureGroup, Polygon } from "react-leaflet";
+import { EditControl } from "react-leaflet-draw"
 import "./App.css";
 
-const initialState = { name: '', description: '' }
-
-export const icon = new Icon({
-  iconUrl: "/skateboarding.svg",
-  iconSize: [25, 25]
-});
+const initialState = { name: '', desc: '' }
 
 const App = () => {
   const [formState, setFormState] = useState(initialState)
   const [todos, setTodos] = useState([])
 
+  // data operations
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -44,32 +40,57 @@ const App = () => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
 
-      {todos.map(todo => (
-        <Marker
-          key={todo.id}
-          position={[
-            todo.lon,
-            todo.lat
-          ]}
-          onClick={() => {
-            setActiveTodo(todo);
-          }}
-          icon={icon}
+      <FeatureGroup>
+        <EditControl
+            position="topright"
+            onCreated={e => {
+              console.log(e);
+              console.log(e.layer.toGeoJSON());
+            }}
+            onEdited={e => {
+                console.log(e);
+                e.layers.eachLayer(a => {
+                    console.log(a.toGeoJSON());
+                });
+            }}
+            onDeleted={e => {
+              console.log(e);
+            }}            
+            edit={{ remove: true }}
+            draw={{
+                marker: false,
+                circlemarker: false,
+                circle: false,
+                rectangle: false,
+                polygon: true,
+                polyline: false
+            }}
         />
-      ))}
+
+        {todos.map(todo => (
+          <Polygon
+            key={todo.id}
+            id={todo.id}
+            positions={JSON.parse(todo.geometry)}
+            onClick={() => {
+              setActiveTodo(todo);
+            }}
+          />
+        ))}
+      </FeatureGroup>
 
       {activeTodo && (
         <Popup
           position={[
-            activeTodo.lon,
             activeTodo.lat,
+            activeTodo.lon,
           ]}
           onClose={() => {
             setActiveTodo(null);
           }}
         >
           <div>
-            <h2>{activeTodo.description}</h2>
+            <h2>{activeTodo.desc}</h2>
           </div>
         </Popup>
       )}            
