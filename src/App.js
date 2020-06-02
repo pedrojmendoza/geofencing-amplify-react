@@ -33,20 +33,6 @@ const App = () => {
     } catch (err) { console.log('error fetching todos') }
   }
 
-  async function addTodo() {
-    try {
-      const enteredName = prompt('Please enter the region name')
-      formState.name = enteredName;
-      if (!formState.name || !formState.geometry) return
-      const todo = { ...formState }
-      setTodos([...todos, todo])
-      setFormState(initialState)
-      await API.graphql(graphqlOperation(createTodo, {input: todo}))
-    } catch (err) {
-      console.log('error creating todo:', err)
-    }
-  }
-
   return (
     <>
       <Map center={[45.4, -75.7]} zoom={11}>
@@ -68,7 +54,10 @@ const App = () => {
                   latlon.push(lonlat[1], lonlat[0]);
                   latlons.push(latlon);
                 }
-                setInput('geometry', JSON.stringify(latlons));
+                const enteredName = prompt('Please enter the region name')
+                const todo = {name: enteredName, geometry: JSON.stringify(latlons)}
+                API.graphql(graphqlOperation(createTodo, {input: todo}));
+                setTodos([...todos, todo])          
               }}
               edit={{ remove: false, edit: false }}
               draw={{
@@ -110,8 +99,6 @@ const App = () => {
         </FeatureGroup>
       </Map>
       <div>
-        <button onClick={addTodo}>Save changes</button>
-        <br/>
         <input
           id="geometry"
           size="200"
