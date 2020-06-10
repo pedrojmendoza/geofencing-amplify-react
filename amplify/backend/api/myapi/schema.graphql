@@ -1,4 +1,4 @@
-type Todo @model {
+type Geofence @model {
   id: ID!
   name: String!
   geometry: String

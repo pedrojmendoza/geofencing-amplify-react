@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
+export const getGeofence = /* GraphQL */ `
+  query GetGeofence($id: ID!) {
+    getGeofence(id: $id) {
       id
       name
       geometry
@@ -12,13 +12,13 @@ export const getTodo = /* GraphQL */ `
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
+export const listGeofences = /* GraphQL */ `
+  query ListGeofences(
+    $filter: ModelGeofenceFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listGeofences(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         name

@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo {
-    onCreateTodo {
+export const onCreateGeofence = /* GraphQL */ `
+  subscription OnCreateGeofence {
+    onCreateGeofence {
       id
       name
       geometry
@@ -12,9 +12,9 @@ export const onCreateTodo = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo {
-    onUpdateTodo {
+export const onUpdateGeofence = /* GraphQL */ `
+  subscription OnUpdateGeofence {
+    onUpdateGeofence {
       id
       name
       geometry
@@ -23,9 +23,9 @@ export const onUpdateTodo = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo {
-    onDeleteTodo {
+export const onDeleteGeofence = /* GraphQL */ `
+  subscription OnDeleteGeofence {
+    onDeleteGeofence {
       id
       name
       geometry

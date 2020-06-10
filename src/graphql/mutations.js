@@ -1,12 +1,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createGeofence = /* GraphQL */ `
+  mutation CreateGeofence(
+    $input: CreateGeofenceInput!
+    $condition: ModelGeofenceConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createGeofence(input: $input, condition: $condition) {
       id
       name
       geometry
@@ -15,12 +15,12 @@ export const createTodo = /* GraphQL */ `
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateGeofence = /* GraphQL */ `
+  mutation UpdateGeofence(
+    $input: UpdateGeofenceInput!
+    $condition: ModelGeofenceConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updateGeofence(input: $input, condition: $condition) {
       id
       name
       geometry
@@ -29,12 +29,12 @@ export const updateTodo = /* GraphQL */ `
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteGeofence = /* GraphQL */ `
+  mutation DeleteGeofence(
+    $input: DeleteGeofenceInput!
+    $condition: ModelGeofenceConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deleteGeofence(input: $input, condition: $condition) {
       id
       name
       geometry

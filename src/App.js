@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react'
 
 import { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
-import { listTodos } from './graphql/queries'
+import { createGeofence } from './graphql/mutations'
+import { listGeofences } from './graphql/queries'
 import { withAuthenticator } from '@aws-amplify/ui-react'
 import { Map, Popup, FeatureGroup, Polygon, ImageOverlay } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw"
@@ -11,24 +11,24 @@ import "./App.css";
 
 const App = () => {
   const [formState, setFormState] = useState()
-  const [todos, setTodos] = useState([])
-  const [activeTodo, setActiveTodo] = useState(null);
+  const [geofences, setGeofences] = useState([])
+  const [activeGeofence, setActiveGeofence] = useState(null);
 
   // data operations
   useEffect(() => {
-    fetchTodos()
+    fetchGeofences()
   }, [])
 
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value })
   }
 
-  async function fetchTodos() {
+  async function fetchGeofences() {
     try {
-      const todoData = await API.graphql(graphqlOperation(listTodos))
-      const todos = todoData.data.listTodos.items
-      setTodos(todos)
-    } catch (err) { console.log('error fetching todos') }
+      const geofenceData = await API.graphql(graphqlOperation(listGeofences))
+      const geofences = geofenceData.data.listGeofences.items
+      setGeofences(geofences)
+    } catch (err) { console.log('error fetching geofences') }
   }
 
   return (
@@ -57,9 +57,9 @@ const App = () => {
                   latlons.push(latlon);
                 }
                 const enteredName = prompt('Please enter the region name')
-                const todo = {name: enteredName, geometry: JSON.stringify(latlons)}
-                API.graphql(graphqlOperation(createTodo, {input: todo}));
-                setTodos([...todos, todo])          
+                const geofence = {name: enteredName, geometry: JSON.stringify(latlons)}
+                API.graphql(graphqlOperation(createGeofence, {input: geofence}));
+                setGeofences([...geofences, geofence])          
               }}
               edit={{ remove: false, edit: false }}
               draw={{
@@ -72,29 +72,29 @@ const App = () => {
               }}
           />
 
-          {todos.map(todo => (
+          {geofences.map(geofence => (
             <Polygon
-              key={todo.id}
-              id={todo.id}
-              positions={JSON.parse(todo.geometry)}
+              key={geofence.id}
+              id={geofence.id}
+              positions={JSON.parse(geofence.geometry)}
               onClick={() => {
-                setActiveTodo(todo);
+                setActiveGeofence(geofence);
               }}
             />
           ))}
 
-          {activeTodo && (
+          {activeGeofence && (
             <Popup
               position={[
-                JSON.parse(activeTodo.geometry)[0][1],
-                JSON.parse(activeTodo.geometry)[0][0],
+                JSON.parse(activeGeofence.geometry)[0][1],
+                JSON.parse(activeGeofence.geometry)[0][0],
               ]}
               onClose={() => {
-                setActiveTodo(null);
+                setActiveGeofence(null);
               }}
             >
               <div>
-                <h2>{activeTodo.name}</h2>
+                <h2>{activeGeofence.name}</h2>
               </div>
             </Popup>
           )}
@@ -105,7 +105,7 @@ const App = () => {
           id="geometry"
           size="200"
           onChange={event => setInput('geometry', event.target.value)}
-          value={activeTodo ? activeTodo.geometry : ""} 
+          value={activeGeofence ? activeGeofence.geometry : ""} 
           placeholder="Geometry"
           type="hidden"
         />
