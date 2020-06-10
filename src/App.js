@@ -9,8 +9,6 @@ import { Map, Popup, TileLayer, FeatureGroup, Polygon } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw"
 import "./App.css";
 
-const initialState = { name: '', geometry: '' }
-
 const App = () => {
   const [formState, setFormState] = useState()
   const [todos, setTodos] = useState([])
