@@ -5,7 +5,7 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { withAuthenticator } from '@aws-amplify/ui-react'
-import { Map, Popup, TileLayer, FeatureGroup, Polygon } from "react-leaflet";
+import { Map, Popup, FeatureGroup, Polygon, ImageOverlay } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw"
 import "./App.css";
 
@@ -33,12 +33,16 @@ const App = () => {
 
   return (
     <>
-      <Map center={[45.4, -75.7]} zoom={11}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      <Map center={[1, 2]} zoom={9}>
+        <ImageOverlay
+          bounds={
+            [
+              [0, 0], 
+              [2, 4]
+            ]           
+          }
+          url="https://gmpbio.org/assets/uploads/misc-images/Untitled.png"
         />
-
         <FeatureGroup>
           <EditControl
               position="topright"
